@@ -8,6 +8,7 @@ public class DrawController : MonoBehaviour
 	
 	private GameMode _gameMode = GameMode.Draw;
 
+	private readonly List<DrawRectangle> _shapes = new List<DrawRectangle>();
 	private DrawRectangle _currentShape;
 
 	private bool IsDrawingShape
@@ -28,6 +29,9 @@ public class DrawController : MonoBehaviour
 			if (!IsDrawingShape) {
 				_currentShape = Instantiate(RectanglePrefab);
 				_currentShape.StartVertex(mousePos);
+				_currentShape.name = "Shape " + _shapes.Count;
+				
+				_shapes.Add(_currentShape);
 			} else {
 				IsDrawingShape = false;
 			}
