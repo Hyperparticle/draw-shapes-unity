@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Taken from <see cref="http://wiki.unity3d.com/index.php?title=Triangulator"/>
+/// </summary>
 public class Triangulator 
 {
     private readonly List<Vector2> _mPoints;
@@ -90,7 +93,7 @@ public class Triangulator
         return true;
     }
  
-    private bool InsideTriangle (Vector2 A, Vector2 B, Vector2 C, Vector2 P) {
+    private static bool InsideTriangle (Vector2 A, Vector2 B, Vector2 C, Vector2 P) {
         float ax, ay, bx, by, cx, cy, apx, apy, bpx, bpy, cpx, cpy;
         float cCROSSap, bCROSScp, aCROSSbp;
  

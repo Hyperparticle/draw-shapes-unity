@@ -6,7 +6,7 @@ public class DrawController : MonoBehaviour
 {
 	public DrawRectangle RectanglePrefab;
 	
-	private GameMode _gameMode = GameMode.Draw;
+//	private GameMode _gameMode = GameMode.Draw;
 
 	private readonly List<DrawRectangle> _shapes = new List<DrawRectangle>();
 	private DrawRectangle _currentShape;
@@ -19,9 +19,9 @@ public class DrawController : MonoBehaviour
 
 	private void Update()
 	{
-		if (_gameMode != GameMode.Draw) {
-			return;
-		}
+//		if (_gameMode != GameMode.Draw) {
+//			return;
+//		}
 		
 		var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		
@@ -33,6 +33,7 @@ public class DrawController : MonoBehaviour
 				
 				_shapes.Add(_currentShape);
 			} else {
+				_currentShape.Simulate(true);
 				IsDrawingShape = false;
 			}
 		}
@@ -43,7 +44,7 @@ public class DrawController : MonoBehaviour
 	}
 }
 
-public enum GameMode
-{
-	Draw, Simulate
-}
+//public enum GameMode
+//{
+//	Draw, Simulate
+//}
