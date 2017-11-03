@@ -121,6 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 232626159}
   - component: {fileID: 232626160}
+  - component: {fileID: 232626161}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -152,10 +153,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6d134c3716dbf42b221844300ee6d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RectanglePrefab: {fileID: 1888107523943466, guid: 9f899b9f6f08f5f4fbc2b21dbb6da9c6,
+  DrawMode: 0
+  RectanglePrefab: {fileID: 114012866891588282, guid: 9f899b9f6f08f5f4fbc2b21dbb6da9c6,
     type: 2}
-  CirclePrefab: {fileID: 1888107523943466, guid: 9dab774982fc2a948940e206a8122d80,
+  CirclePrefab: {fileID: 114714656820787570, guid: 9dab774982fc2a948940e206a8122d80,
     type: 2}
+  TrianglePrefab: {fileID: 114216011692043444, guid: 45c29c208e1c0cc4486295dc5371bc9d,
+    type: 2}
+--- !u!114 &232626161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 232626158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7720930151ba258478ba38b421521579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 10
+  Power: 2000
 --- !u!1001 &272989143
 Prefab:
   m_ObjectHideFlags: 0

@@ -26,13 +26,13 @@ public class Triangulator
         }
         else {
             for (var v = 0; v < n; v++)
-                V[v] = (n - 1) - v;
+                V[v] = n - 1 - v;
         }
  
         var nv = n;
         var count = 2 * nv;
         for (int m = 0, v = nv - 1; nv > 2; ) {
-            if ((count--) <= 0)
+            if (count-- <= 0)
                 return indices.ToArray();
  
             var u = v;
@@ -73,7 +73,7 @@ public class Triangulator
             var qval = _mPoints[q];
             A += pval.x * qval.y - qval.x * pval.y;
         }
-        return (A * 0.5f);
+        return A * 0.5f;
     }
  
     private bool Snip (int u, int v, int w, int n, int[] V) {
@@ -81,10 +81,10 @@ public class Triangulator
         var A = _mPoints[V[u]];
         var B = _mPoints[V[v]];
         var C = _mPoints[V[w]];
-        if (Mathf.Epsilon > (((B.x - A.x) * (C.y - A.y)) - ((B.y - A.y) * (C.x - A.x))))
+        if (Mathf.Epsilon > (B.x - A.x) * (C.y - A.y) - (B.y - A.y) * (C.x - A.x))
             return false;
         for (p = 0; p < n; p++) {
-            if ((p == u) || (p == v) || (p == w))
+            if (p == u || p == v || p == w)
                 continue;
             var P = _mPoints[V[p]];
             if (InsideTriangle(A, B, C, P))
@@ -108,6 +108,6 @@ public class Triangulator
         cCROSSap = cx * apy - cy * apx;
         bCROSScp = bx * cpy - by * cpx;
  
-        return ((aCROSSbp >= 0.0f) && (bCROSScp >= 0.0f) && (cCROSSap >= 0.0f));
+        return aCROSSbp >= 0.0f && bCROSScp >= 0.0f && cCROSSap >= 0.0f;
     }
 }

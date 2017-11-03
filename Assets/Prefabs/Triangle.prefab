@@ -22,12 +22,12 @@ GameObject:
   - component: {fileID: 33821923490049826}
   - component: {fileID: 23563535693946892}
   - component: {fileID: 50009870288600066}
-  - component: {fileID: 61883201035899394}
-  - component: {fileID: 114012866891588282}
+  - component: {fileID: 60861543187025610}
+  - component: {fileID: 114216011692043444}
   m_Layer: 0
-  m_Name: Rectangle
+  m_Name: Triangle
   m_TagString: Untagged
-  m_Icon: {fileID: -6488666005112524639, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -2349822300998112484, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -105,8 +105,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61883201035899394
-BoxCollider2D:
+--- !u!60 &60861543187025610
+PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -127,10 +127,14 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &114012866891588282
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.5}
+      - {x: -0.47552827, y: 0.15450849}
+      - {x: -0.2938926, y: -0.40450853}
+      - {x: 0.29389268, y: -0.40450847}
+      - {x: 0.47552824, y: 0.15450856}
+--- !u!114 &114216011692043444
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -138,7 +142,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1888107523943466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aed2ae60dd951a448d3caa74b387d67, type: 3}
+  m_Script: {fileID: 11500000, guid: cb190b33dd97dd74da773f544ab6e209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   FillColor: {r: 1, g: 1, b: 1, a: 1}

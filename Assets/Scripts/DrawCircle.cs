@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class DrawCircle : MonoBehaviour
+public class DrawCircle : DrawShape 
 {
 	public Color FillColor = Color.white;
 	
@@ -11,7 +11,9 @@ public class DrawCircle : MonoBehaviour
 	private CircleCollider2D _circleCollider2D;
 
 	// Start and end vertices (in absolute coordinates)
-	private Vector2 _v0, _v1;
+	private readonly List<Vector2> _vertices = new List<Vector2>(2);
+    
+	private bool ShapeFinished { get { return _vertices.Count >= 2; } }
 
 	private void Awake()
 	{
@@ -20,26 +22,39 @@ public class DrawCircle : MonoBehaviour
 		_circleCollider2D = GetComponent<CircleCollider2D>();
 	}
 
-	public void StartVertex(Vector2 vertex)
+	public override bool AddVertex(Vector2 vertex)
 	{
-		transform.position = vertex;
-		_v0 = _v1 = vertex;
+		if (ShapeFinished) {
+			return true;
+		}
+        
+		_vertices.Add(vertex);
+		UpdateShape(vertex);
+
+		return false;
 	}
 
-	public void UpdateShape(Vector2 newVertex)
+	public override void UpdateShape(Vector2 newVertex)
 	{
-		_v1 = newVertex;
+		if (_vertices.Count < 2) {
+			return;
+		}
+		
+		_vertices[_vertices.Count - 1] = newVertex;
+		
+		// Set the gameobject's position to be the center of mass
+		transform.position = _vertices[0];
 
 		// Update the mesh relative to the transform
 		var v0Relative = Vector2.zero;
-		var v1Relative = _v1 - _v0;
+		var v1Relative = _vertices[1] - _vertices[0];
 		_meshFilter.mesh = CircleMesh(v0Relative, v1Relative, FillColor);
 		
 		// Update the collider
-		_circleCollider2D.radius = Vector2.Distance(_v0, _v1);
+		_circleCollider2D.radius = Vector2.Distance(_vertices[0], _vertices[1]);
 	}
 
-	public void Simulate(bool active)
+	public override void Simulate(bool active)
 	{
 		_rigidbody2D.bodyType = active ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
 	}

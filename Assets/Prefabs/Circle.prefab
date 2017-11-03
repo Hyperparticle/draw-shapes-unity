@@ -27,7 +27,7 @@ GameObject:
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
-  m_Icon: {fileID: 6926474624037801865, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -1577725955494882426, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

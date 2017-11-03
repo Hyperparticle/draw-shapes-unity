@@ -2,24 +2,24 @@
 using System.Linq;
 using UnityEngine;
 
-public class DrawRectangle : DrawShape 
+public class DrawTriangle : DrawShape 
 {
     public Color FillColor = Color.white;
 	
     private MeshFilter _meshFilter;
     private Rigidbody2D _rigidbody2D;
-    private BoxCollider2D _boxCollider2D;
+    private PolygonCollider2D _polygonCollider2D;
 
-    // Start and end vertices (in absolute coordinates)
-    private readonly List<Vector2> _vertices = new List<Vector2>(2);
+    // Triangle vertices (in absolute coordinates)
+    private readonly List<Vector2> _vertices = new List<Vector2>(3);
     
-    private bool ShapeFinished { get { return _vertices.Count >= 2; } }
+    private bool ShapeFinished { get { return _vertices.Count >= 3; } }
 
     private void Awake()
     {
         _meshFilter = GetComponent<MeshFilter>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _boxCollider2D = GetComponent<BoxCollider2D>();
+        _polygonCollider2D = GetComponent<PolygonCollider2D>();
     }
 
     public override bool AddVertex(Vector2 vertex)
@@ -48,11 +48,10 @@ public class DrawRectangle : DrawShape
 
         // Update the mesh relative to the transform
         var relativeVertices = _vertices.Select(v => v - center).ToArray();
-        _meshFilter.mesh = RectangleMesh(relativeVertices[0], relativeVertices[1], FillColor);
+        _meshFilter.mesh = TriangleMesh(relativeVertices, FillColor);
 		
         // Update the collider
-        var dimensions = (_vertices[1] - _vertices[0]).Abs();
-        _boxCollider2D.size = dimensions;
+        _polygonCollider2D.points = relativeVertices;
     }
 
     public override void Simulate(bool active)
@@ -60,22 +59,17 @@ public class DrawRectangle : DrawShape
         _rigidbody2D.bodyType = active ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
     }
 
-    private static Mesh RectangleMesh(Vector2 v0, Vector2 v1, Color fillColor)
+    private static Mesh TriangleMesh(Vector2[] vertices, Color fillColor)
     {
-        // Note: vertices must be adjacent to each other for Triangulator to work properly
-        var v2 = new Vector2(v0.x, v1.y);
-        var v3 = new Vector2(v1.x, v0.y);
-        var rectangleVertices = new[] { v0, v2, v1, v3 };
-
         // Find all the triangles in the shape
-        var triangles = new Triangulator(rectangleVertices).Triangulate();
+        var triangles = new Triangulator(vertices).Triangulate();
 		
         // Assign each vertex the fill color
-        var colors = Enumerable.Repeat(fillColor, rectangleVertices.Length).ToArray();
+        var colors = Enumerable.Repeat(fillColor, vertices.Length).ToArray();
 
         var mesh = new Mesh {
-            name = "Rectangle",
-            vertices = rectangleVertices.ToVector3(),
+            name = "Triangle",
+            vertices = vertices.ToVector3(),
             triangles = triangles,
             colors = colors
         };

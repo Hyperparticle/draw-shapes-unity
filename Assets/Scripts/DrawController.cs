@@ -1,58 +1,64 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class DrawController : MonoBehaviour
 {
-	public DrawMode DrawMode = DrawMode.Rect;
+	public DrawMode DrawMode = DrawMode.Rectangle;
 	
-	public GameObject RectanglePrefab;
-	public GameObject CirclePrefab;
+	public DrawShape RectanglePrefab;
+	public DrawShape CirclePrefab;
+	public DrawShape TrianglePrefab;
 
-	private Dictionary<DrawMode, GameObject> _drawModeToPrefab;
+	private Dictionary<DrawMode, DrawShape> _drawModeToPrefab;
 
 	private void Awake()
 	{
-		_drawModeToPrefab = new Dictionary<DrawMode, GameObject> {
-			{DrawMode.Rect, RectanglePrefab},
-			{DrawMode.Circle, CirclePrefab}
+		_drawModeToPrefab = new Dictionary<DrawMode, DrawShape> {
+			{DrawMode.Rectangle, RectanglePrefab},
+			{DrawMode.Circle, CirclePrefab},
+			{DrawMode.Triangle, TrianglePrefab}
 		};
 	}
 
-	private readonly List<GameObject> _shapes = new List<GameObject>();
-	private GameObject _currentShape;
+	private readonly List<DrawShape> _shapes = new List<DrawShape>();
 
-	private bool IsDrawingShape
-	{
-		get { return _currentShape != null; }
-		set { _currentShape = value ? _currentShape : null; }
-	}
+	private DrawShape CurrentShape { get; set; }
+	private bool IsDrawingShape { get; set; }
 
 	private void Update()
 	{
 		var mousePos = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		
+		// TODO: need to know when shape starts and when it finishes
 		if (Input.GetKeyUp(KeyCode.Mouse0)) {
-			if (!IsDrawingShape) {
+			if (CurrentShape == null) {
 				var prefab = _drawModeToPrefab[DrawMode];
-				_currentShape = Instantiate(prefab);
-				_currentShape.name = "Shape " + _shapes.Count;
-				_currentShape.SendMessage("StartVertex", mousePos);
+				CurrentShape = Instantiate(prefab);
+				CurrentShape.name = "Shape " + _shapes.Count;
 				
-				_shapes.Add(_currentShape);
+				CurrentShape.AddVertex(mousePos);
+				CurrentShape.AddVertex(mousePos);
+				
+				IsDrawingShape = true;
+				
+				_shapes.Add(CurrentShape);
 			} else {
-				_currentShape.SendMessage("Simulate", true);
-				IsDrawingShape = false;
+				var shapeFinished = CurrentShape.AddVertex(mousePos);
+				
+				if (shapeFinished) {
+					CurrentShape.Simulate(true);
+				}
+				
+				IsDrawingShape = !shapeFinished;
+				CurrentShape = IsDrawingShape ? CurrentShape : null;
 			}
-		}
-
-		if (IsDrawingShape) {
-			_currentShape.SendMessage("UpdateShape", mousePos);
+		} else if (CurrentShape != null && IsDrawingShape) {
+			CurrentShape.UpdateShape(mousePos);
 		}
 	}
 }
 
 public enum DrawMode
 {
-    Rect, Circle
+    Rectangle, Circle, Triangle
 }
