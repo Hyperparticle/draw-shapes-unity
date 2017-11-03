@@ -152,7 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6d134c3716dbf42b221844300ee6d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RectanglePrefab: {fileID: 114012866891588282, guid: 9f899b9f6f08f5f4fbc2b21dbb6da9c6,
+  RectanglePrefab: {fileID: 1888107523943466, guid: 9f899b9f6f08f5f4fbc2b21dbb6da9c6,
+    type: 2}
+  CirclePrefab: {fileID: 1888107523943466, guid: 9dab774982fc2a948940e206a8122d80,
     type: 2}
 --- !u!1001 &272989143
 Prefab:
