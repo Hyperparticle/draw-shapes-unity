@@ -61,6 +61,7 @@ public class DrawCircle : DrawShape
 	public override void Simulate(bool active)
 	{
 		_rigidbody2D.bodyType = active ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
+        _rigidbody2D.useAutoMass = true;
 	}
 
 	private static Mesh CircleMesh(Vector2 v0, Vector2 v1, Color fillColor)
