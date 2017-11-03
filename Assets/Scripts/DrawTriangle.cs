@@ -9,6 +9,7 @@ public class DrawTriangle : DrawShape
     private MeshFilter _meshFilter;
     private Rigidbody2D _rigidbody2D;
     private PolygonCollider2D _polygonCollider2D;
+    private LineRenderer _lineRenderer;
 
     // Triangle vertices (in absolute coordinates)
     private readonly List<Vector2> _vertices = new List<Vector2>(3);
@@ -20,6 +21,7 @@ public class DrawTriangle : DrawShape
         _meshFilter = GetComponent<MeshFilter>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _polygonCollider2D = GetComponent<PolygonCollider2D>();
+        _lineRenderer = GetComponent<LineRenderer>();
     }
 
     public override bool AddVertex(Vector2 vertex)
@@ -52,6 +54,9 @@ public class DrawTriangle : DrawShape
 		
         // Update the collider
         _polygonCollider2D.points = relativeVertices;
+
+        _lineRenderer.positionCount = _meshFilter.mesh.vertices.Length;
+        _lineRenderer.SetPositions(_meshFilter.mesh.vertices);
     }
 
     public override void Simulate(bool active)

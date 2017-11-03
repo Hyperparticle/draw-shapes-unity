@@ -9,6 +9,7 @@ public class DrawCircle : DrawShape
 	private MeshFilter _meshFilter;
 	private Rigidbody2D _rigidbody2D;
 	private CircleCollider2D _circleCollider2D;
+    private LineRenderer _lineRenderer;
 
 	// Start and end vertices (in absolute coordinates)
 	private readonly List<Vector2> _vertices = new List<Vector2>(2);
@@ -20,6 +21,7 @@ public class DrawCircle : DrawShape
 		_meshFilter = GetComponent<MeshFilter>();
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 		_circleCollider2D = GetComponent<CircleCollider2D>();
+        _lineRenderer = GetComponent<LineRenderer>();
 	}
 
 	public override bool AddVertex(Vector2 vertex)
@@ -50,8 +52,10 @@ public class DrawCircle : DrawShape
 		var v1Relative = _vertices[1] - _vertices[0];
 		_meshFilter.mesh = CircleMesh(v0Relative, v1Relative, FillColor);
 		
-		// Update the collider
 		_circleCollider2D.radius = Vector2.Distance(_vertices[0], _vertices[1]);
+		
+		_lineRenderer.positionCount = _meshFilter.mesh.vertices.Length;
+        _lineRenderer.SetPositions(_meshFilter.mesh.vertices);
 	}
 
 	public override void Simulate(bool active)

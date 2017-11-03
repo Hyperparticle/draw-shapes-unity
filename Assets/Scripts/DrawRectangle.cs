@@ -9,6 +9,7 @@ public class DrawRectangle : DrawShape
     private MeshFilter _meshFilter;
     private Rigidbody2D _rigidbody2D;
     private BoxCollider2D _boxCollider2D;
+    private LineRenderer _lineRenderer;
 
     // Start and end vertices (in absolute coordinates)
     private readonly List<Vector2> _vertices = new List<Vector2>(2);
@@ -20,6 +21,7 @@ public class DrawRectangle : DrawShape
         _meshFilter = GetComponent<MeshFilter>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
+        _lineRenderer = GetComponent<LineRenderer>();
     }
 
     public override bool AddVertex(Vector2 vertex)
@@ -50,9 +52,11 @@ public class DrawRectangle : DrawShape
         var relativeVertices = _vertices.Select(v => v - center).ToArray();
         _meshFilter.mesh = RectangleMesh(relativeVertices[0], relativeVertices[1], FillColor);
 		
-        // Update the collider
         var dimensions = (_vertices[1] - _vertices[0]).Abs();
         _boxCollider2D.size = dimensions;
+        
+        _lineRenderer.positionCount = _meshFilter.mesh.vertices.Length;
+        _lineRenderer.SetPositions(_meshFilter.mesh.vertices);
     }
 
     public override void Simulate(bool active)
@@ -62,6 +66,7 @@ public class DrawRectangle : DrawShape
 
     private static Mesh RectangleMesh(Vector2 v0, Vector2 v1, Color fillColor)
     {
+        // Calculate implied verticies
         // Note: vertices must be adjacent to each other for Triangulator to work properly
         var v2 = new Vector2(v0.x, v1.y);
         var v3 = new Vector2(v1.x, v0.y);
