@@ -157,6 +157,8 @@ MonoBehaviour:
     type: 2}
   CirclePrefab: {fileID: 114714656820787570, guid: 9dab774982fc2a948940e206a8122d80,
     type: 2}
+  TrianglePrefab: {fileID: 114216011692043444, guid: 45c29c208e1c0cc4486295dc5371bc9d,
+    type: 2}
 --- !u!1001 &272989143
 Prefab:
   m_ObjectHideFlags: 0

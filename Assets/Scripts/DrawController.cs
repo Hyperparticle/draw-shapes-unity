@@ -14,6 +14,7 @@ public class DrawController : MonoBehaviour
 	
 	public DrawShape RectanglePrefab;
 	public DrawShape CirclePrefab;
+	public DrawShape TrianglePrefab;
 
 	// Associates a draw mode to the prefab to instantiate
 	private Dictionary<DrawMode, DrawShape> _drawModeToPrefab;
@@ -22,7 +23,8 @@ public class DrawController : MonoBehaviour
 	{
 		_drawModeToPrefab = new Dictionary<DrawMode, DrawShape> {
 			{DrawMode.Rectangle, RectanglePrefab},
-			{DrawMode.Circle, CirclePrefab}
+			{DrawMode.Circle, CirclePrefab},
+			{DrawMode.Triangle, TrianglePrefab}
 		};
 	}
 
@@ -97,7 +99,7 @@ public class DrawController : MonoBehaviour
 	/// </summary>
 	public enum DrawMode
 	{
-		Rectangle, Circle
+		Rectangle, Circle, Triangle
 	}
 }
 
