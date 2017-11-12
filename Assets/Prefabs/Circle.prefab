@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15e2666960f80f4094b214a4564cf5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FillColor: {r: 1, g: 1, b: 1, a: 1}
+  FillColor: {r: 0.42592993, g: 0.74264705, b: 0.5460641, a: 1}
 --- !u!120 &120223099928912480
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -170,7 +170,7 @@ LineRenderer:
   m_Positions: []
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.05
+    widthMultiplier: 0.025
     widthCurve:
       serializedVersion: 2
       m_Curve:

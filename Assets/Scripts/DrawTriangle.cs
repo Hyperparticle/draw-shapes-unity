@@ -1,7 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <inheritdoc />
+/// <summary>
+/// A 2D physics triangle that is drawn by specifying the positions of 
+/// its three vertices.
+/// </summary>
 public class DrawTriangle : DrawShape 
 {
     public Color FillColor = Color.white;
@@ -14,7 +20,18 @@ public class DrawTriangle : DrawShape
     // Triangle vertices (in absolute coordinates)
     private readonly List<Vector2> _vertices = new List<Vector2>(3);
     
-    private bool ShapeFinished { get { return _vertices.Count >= 3; } }
+    public override bool ShapeFinished { get { return _vertices.Count >= 3; } }
+
+    private bool _simulating;
+    public override bool SimulatingPhysics
+    {
+        get { return _simulating; }
+        set {
+            _simulating = value;
+            _rigidbody2D.bodyType = value ? 
+                RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
+        }
+    }
 
     private void Awake()
     {
@@ -22,18 +39,18 @@ public class DrawTriangle : DrawShape
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _polygonCollider2D = GetComponent<PolygonCollider2D>();
         _lineRenderer = GetComponent<LineRenderer>();
+        
+        _rigidbody2D.useAutoMass = true;
     }
 
-    public override bool AddVertex(Vector2 vertex)
+    public override void AddVertex(Vector2 vertex)
     {
         if (ShapeFinished) {
-            return true;
+            return;
         }
         
         _vertices.Add(vertex);
         UpdateShape(vertex);
-
-        return false;
     }
 
     public override void UpdateShape(Vector2 newVertex)
@@ -50,22 +67,21 @@ public class DrawTriangle : DrawShape
 
         // Update the mesh relative to the transform
         var relativeVertices = _vertices.Select(v => v - center).ToArray();
-        _meshFilter.mesh = TriangleMesh(relativeVertices, FillColor);
+        _meshFilter.mesh = PolygonMesh(relativeVertices, FillColor);
 		
         // Update the collider
         _polygonCollider2D.points = relativeVertices;
 
+        // Update the shape's outline
         _lineRenderer.positionCount = _meshFilter.mesh.vertices.Length;
         _lineRenderer.SetPositions(_meshFilter.mesh.vertices);
     }
 
-    public override void Simulate(bool active)
-    {
-        _rigidbody2D.bodyType = active ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
-        _rigidbody2D.useAutoMass = true;
-    }
-
-    private static Mesh TriangleMesh(Vector2[] vertices, Color fillColor)
+    
+    /// <summary>
+    /// Creates and returns a polygon mesh given a list of its vertices.
+    /// </summary>
+    private static Mesh PolygonMesh(Vector2[] vertices, Color fillColor)
     {
         // Find all the triangles in the shape
         var triangles = new Triangulator(vertices).Triangulate();
@@ -82,6 +98,7 @@ public class DrawTriangle : DrawShape
 		
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
+        mesh.RecalculateTangents();
 
         return mesh;
     }

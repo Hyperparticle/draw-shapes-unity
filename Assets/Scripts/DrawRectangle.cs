@@ -2,7 +2,12 @@
 using System.Linq;
 using UnityEngine;
 
-public class DrawRectangle : DrawShape 
+/// <inheritdoc />
+/// <summary>
+/// A 2D physics rectangle that is drawn by specifying the positions of 
+/// its two opposite corners.
+/// </summary>
+public class DrawRectangle : DrawShape
 {
     public Color FillColor = Color.white;
 	
@@ -14,7 +19,18 @@ public class DrawRectangle : DrawShape
     // Start and end vertices (in absolute coordinates)
     private readonly List<Vector2> _vertices = new List<Vector2>(2);
     
-    private bool ShapeFinished { get { return _vertices.Count >= 2; } }
+    public override bool ShapeFinished { get { return _vertices.Count >= 2; } }
+    
+    private bool _simulating;
+    public override bool SimulatingPhysics
+    {
+        get { return _simulating; }
+        set {
+            _simulating = value;
+			_rigidbody2D.bodyType = value ? 
+                RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
+        }
+    }
 
     private void Awake()
     {
@@ -22,18 +38,18 @@ public class DrawRectangle : DrawShape
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _lineRenderer = GetComponent<LineRenderer>();
+        
+        _rigidbody2D.useAutoMass = true;
     }
 
-    public override bool AddVertex(Vector2 vertex)
+    public override void AddVertex(Vector2 vertex)
     {
         if (ShapeFinished) {
-            return true;
+            return;
         }
         
         _vertices.Add(vertex);
         UpdateShape(vertex);
-
-        return false;
     }
 
     public override void UpdateShape(Vector2 newVertex)
@@ -52,22 +68,22 @@ public class DrawRectangle : DrawShape
         var relativeVertices = _vertices.Select(v => v - center).ToArray();
         _meshFilter.mesh = RectangleMesh(relativeVertices[0], relativeVertices[1], FillColor);
 		
+        // Update the collider
         var dimensions = (_vertices[1] - _vertices[0]).Abs();
         _boxCollider2D.size = dimensions;
         
+        // Update the shape's outline
         _lineRenderer.positionCount = _meshFilter.mesh.vertices.Length;
         _lineRenderer.SetPositions(_meshFilter.mesh.vertices);
     }
 
-    public override void Simulate(bool active)
-    {
-        _rigidbody2D.bodyType = active ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
-        _rigidbody2D.useAutoMass = true;
-    }
-
+    /// <summary>
+    /// Creates and returns a rectangle mesh given two vertices on its 
+    /// opposite corners and fills it with the given color. 
+    /// </summary>
     private static Mesh RectangleMesh(Vector2 v0, Vector2 v1, Color fillColor)
     {
-        // Calculate implied verticies
+        // Calculate implied verticies from corner vertices
         // Note: vertices must be adjacent to each other for Triangulator to work properly
         var v2 = new Vector2(v0.x, v1.y);
         var v3 = new Vector2(v1.x, v0.y);
@@ -88,6 +104,7 @@ public class DrawRectangle : DrawShape
 		
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
+        mesh.RecalculateTangents();
 
         return mesh;
     }

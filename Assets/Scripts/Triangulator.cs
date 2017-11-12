@@ -2,9 +2,12 @@
 using UnityEngine;
 
 /// <summary>
+/// This script can be used to split a 2D polygon into triangles.
+/// The algorithm supports concave polygons, but not polygons with holes, 
+/// or multiple polygons at once.
 /// Taken from <see cref="http://wiki.unity3d.com/index.php?title=Triangulator"/>
 /// </summary>
-public class Triangulator 
+public class Triangulator
 {
     private readonly List<Vector2> _mPoints;
  
