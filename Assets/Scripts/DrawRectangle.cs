@@ -7,7 +7,7 @@ using UnityEngine;
 /// A 2D physics rectangle that is drawn by specifying the positions of 
 /// its two opposite corners.
 /// </summary>
-public class DrawRectangle : MonoBehaviour 
+public class DrawRectangle : DrawShape
 {
     public Color FillColor = Color.white;
 	
@@ -19,10 +19,10 @@ public class DrawRectangle : MonoBehaviour
     // Start and end vertices (in absolute coordinates)
     private readonly List<Vector2> _vertices = new List<Vector2>(2);
     
-    public bool ShapeFinished { get { return _vertices.Count >= 2; } }
+    public override bool ShapeFinished { get { return _vertices.Count >= 2; } }
     
     private bool _simulating;
-    public bool SimulatingPhysics
+    public override bool SimulatingPhysics
     {
         get { return _simulating; }
         set {
@@ -42,7 +42,7 @@ public class DrawRectangle : MonoBehaviour
         _rigidbody2D.useAutoMass = true;
     }
 
-    public void AddVertex(Vector2 vertex)
+    public override void AddVertex(Vector2 vertex)
     {
         if (ShapeFinished) {
             return;
@@ -52,7 +52,7 @@ public class DrawRectangle : MonoBehaviour
         UpdateShape(vertex);
     }
 
-    public void UpdateShape(Vector2 newVertex)
+    public override void UpdateShape(Vector2 newVertex)
     {
         if (_vertices.Count < 2) {
             return;

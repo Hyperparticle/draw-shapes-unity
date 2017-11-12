@@ -10,11 +10,25 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class DrawController : MonoBehaviour
 {
-	public DrawRectangle RectanglePrefab;
+	public DrawMode Mode = DrawMode.Rectangle;
+	
+	public DrawShape RectanglePrefab;
+	public DrawShape CirclePrefab;
 
-	private readonly List<DrawRectangle> _allShapes = new List<DrawRectangle>();
+	// Associates a draw mode to the prefab to instantiate
+	private Dictionary<DrawMode, DrawShape> _drawModeToPrefab;
 
-	private DrawRectangle CurrentShapeToDraw { get; set; }
+	private void Awake()
+	{
+		_drawModeToPrefab = new Dictionary<DrawMode, DrawShape> {
+			{DrawMode.Rectangle, RectanglePrefab},
+			{DrawMode.Circle, CirclePrefab}
+		};
+	}
+
+	private readonly List<DrawShape> _allShapes = new List<DrawShape>();
+
+	private DrawShape CurrentShapeToDraw { get; set; }
 	private bool IsDrawingShape { get; set; }
 
 	private void Update()
@@ -40,7 +54,7 @@ public class DrawController : MonoBehaviour
 		if (CurrentShapeToDraw == null) {
 			// No current shape -> instantiate a new shape and add two vertices:
 			// one for the initial position, and the other for the current cursor
-			var prefab = RectanglePrefab;
+			var prefab = _drawModeToPrefab[Mode];
 			CurrentShapeToDraw = Instantiate(prefab);
 			CurrentShapeToDraw.name = "Shape " + _allShapes.Count;
 				
@@ -75,6 +89,15 @@ public class DrawController : MonoBehaviour
 		}
 		
 		CurrentShapeToDraw.UpdateShape(position);
+	}
+
+	/// <summary>
+	/// The types of shapes that can be drawn, useful for
+	/// selecting shapes to draw
+	/// </summary>
+	public enum DrawMode
+	{
+		Rectangle, Circle
 	}
 }
 
