@@ -37,7 +37,8 @@ public class DrawController : MonoBehaviour
 	{
 		var mousePos = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-		var click = Input.GetKeyUp(KeyCode.Mouse0);
+		var click = Input.GetKeyUp(KeyCode.Mouse0) &&
+		            !EventSystem.current.IsPointerOverGameObject();
 		var canUpdateShape = CurrentShapeToDraw != null && IsDrawingShape;
 		
 		if (click) {
@@ -91,6 +92,14 @@ public class DrawController : MonoBehaviour
 		}
 		
 		CurrentShapeToDraw.UpdateShape(position);
+	}
+
+	/// <summary>
+	/// Controlled via Unity GUI button
+	/// </summary>
+	public void SetDrawMode(string mode)
+	{
+		Mode = (DrawMode) Enum.Parse(typeof(DrawMode), mode);
 	}
 
 	/// <summary>
