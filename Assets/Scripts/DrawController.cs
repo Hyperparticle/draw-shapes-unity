@@ -58,6 +58,7 @@ public class DrawController : MonoBehaviour
 			if (IsDrawingShape) {
 				CurrentShapeToDraw.AddVertex(position);
 			} else {
+				CurrentShapeToDraw.SimulatingPhysics = true;
 				CurrentShapeToDraw = null;
 			}
 		}

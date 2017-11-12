@@ -20,4 +20,12 @@ public static class Util
     {
         return vectors.Aggregate((agg, next) => agg + next) / vectors.Count();
     }
+
+    /// <summary>
+    /// Extension returning the absolute value of a vector
+    /// </summary>
+    public static Vector2 Abs(this Vector2 vector)
+    {
+        return new Vector2(Mathf.Abs(vector.x), Mathf.Abs(vector.y));
+    }
 }

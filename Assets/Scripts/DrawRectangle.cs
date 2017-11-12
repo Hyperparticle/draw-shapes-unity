@@ -12,6 +12,8 @@ public class DrawRectangle : MonoBehaviour
     public Color FillColor = Color.white;
 	
     private MeshFilter _meshFilter;
+    private Rigidbody2D _rigidbody2D;
+    private BoxCollider2D _boxCollider2D;
     private LineRenderer _lineRenderer;
 
     // Start and end vertices (in absolute coordinates)
@@ -19,10 +21,25 @@ public class DrawRectangle : MonoBehaviour
     
     public bool ShapeFinished { get { return _vertices.Count >= 2; } }
     
+    private bool _simulating;
+    public bool SimulatingPhysics
+    {
+        get { return _simulating; }
+        set {
+            _simulating = value;
+			_rigidbody2D.bodyType = value ? 
+                RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
+        }
+    }
+
     private void Awake()
     {
         _meshFilter = GetComponent<MeshFilter>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _boxCollider2D = GetComponent<BoxCollider2D>();
         _lineRenderer = GetComponent<LineRenderer>();
+        
+        _rigidbody2D.useAutoMass = true;
     }
 
     public void AddVertex(Vector2 vertex)
@@ -51,6 +68,10 @@ public class DrawRectangle : MonoBehaviour
         var relativeVertices = _vertices.Select(v => v - center).ToArray();
         _meshFilter.mesh = RectangleMesh(relativeVertices[0], relativeVertices[1], FillColor);
 		
+        // Update the collider
+        var dimensions = (_vertices[1] - _vertices[0]).Abs();
+        _boxCollider2D.size = dimensions;
+        
         // Update the shape's outline
         _lineRenderer.positionCount = _meshFilter.mesh.vertices.Length;
         _lineRenderer.SetPositions(_meshFilter.mesh.vertices);
