@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 195200218}
   - component: {fileID: 195200217}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,7 +211,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 195200215}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -289, y: 222, z: 0}
+  m_LocalPosition: {x: -422, y: 250, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1067366824}
@@ -220,7 +220,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -289, y: 222}
+  m_AnchoredPosition: {x: -422, y: 250}
   m_SizeDelta: {x: 160, y: 56.87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &195200217
@@ -369,6 +369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Radius: 10
   Power: 2000
+  ExplosionKey: 32
 --- !u!1001 &272989143
 Prefab:
   m_ObjectHideFlags: 0
@@ -475,7 +476,7 @@ Prefab:
     - target: {fileID: 233313138533492506, guid: 1c40983c7c5bfc649a7dba7a5659584b,
         type: 2}
       propertyPath: m_Motor.m_MaximumMotorForce
-      value: 100000
+      value: 1000000
       objectReference: {fileID: 0}
     - target: {fileID: 233313138533492506, guid: 1c40983c7c5bfc649a7dba7a5659584b,
         type: 2}
@@ -489,7 +490,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1579149599382276, guid: 1c40983c7c5bfc649a7dba7a5659584b, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c40983c7c5bfc649a7dba7a5659584b, type: 2}
@@ -519,7 +520,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 678267009}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -116, y: 222, z: 0}
+  m_LocalPosition: {x: -249, y: 250, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 35475913}
@@ -528,7 +529,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -116, y: 222}
+  m_AnchoredPosition: {x: -249, y: 250}
   m_SizeDelta: {x: 160, y: 56.87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &678267011
@@ -852,7 +853,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 948062985}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 480, y: 270, z: 0}
+  m_LocalPosition: {x: 517.5, y: 291, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 195200216}
@@ -1111,6 +1112,11 @@ Prefab:
       propertyPath: m_Name
       value: Platform (0)
       objectReference: {fileID: 0}
+    - target: {fileID: 23401940969194982, guid: e5183832ba028974ba941ceea609c8e8,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e5183832ba028974ba941ceea609c8e8, type: 2}
   m_IsPrefabParent: 0
@@ -1144,7 +1150,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1507703473}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 59, y: 222, z: 0}
+  m_LocalPosition: {x: -74, y: 250, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 799479916}
@@ -1153,7 +1159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 59, y: 222}
+  m_AnchoredPosition: {x: -74, y: 250}
   m_SizeDelta: {x: 160, y: 56.87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1507703475
