@@ -11,4 +11,13 @@ public static class Util
     {
         return System.Array.ConvertAll<Vector2, Vector3>(vectors, v => v);
     }
+
+    /// <summary>
+    /// Extension that, given a collection of vectors, returns a centroid 
+    /// (i.e., an average of all vectors) 
+    /// </summary>
+    public static Vector2 Centroid(this ICollection<Vector2> vectors)
+    {
+        return vectors.Aggregate((agg, next) => agg + next) / vectors.Count();
+    }
 }
