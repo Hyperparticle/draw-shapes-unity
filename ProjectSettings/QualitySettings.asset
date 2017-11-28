@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 5
+  m_CurrentQuality: 4
   m_QualitySettings:
   - serializedVersion: 2
     name: Very Low
@@ -120,8 +120,8 @@ QualitySettings:
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Very High
-    pixelLightCount: 3
-    shadows: 2
+    pixelLightCount: 1
+    shadows: 0
     shadowResolution: 2
     shadowProjection: 1
     shadowCascades: 2
@@ -133,7 +133,7 @@ QualitySettings:
     blendWeights: 4
     textureQuality: 0
     anisotropicTextures: 2
-    antiAliasing: 2
+    antiAliasing: 8
     softParticles: 1
     softVegetation: 1
     realtimeReflectionProbes: 1
@@ -175,7 +175,7 @@ QualitySettings:
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
-    Android: 3
+    Android: 4
     Nintendo 3DS: 5
     Nintendo Switch: 5
     PS4: 5
@@ -184,9 +184,9 @@ QualitySettings:
     Samsung TV: 2
     Standalone: 5
     Tizen: 2
-    WebGL: 3
+    WebGL: 4
     WiiU: 5
     Windows Store Apps: 5
     XboxOne: 5
-    iPhone: 3
+    iPhone: 4
     tvOS: 2
