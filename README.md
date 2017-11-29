@@ -2,7 +2,10 @@
 
 This tutorial project provides an example of how to draw shapes with the cursor in Unity similar to [IncrediBots](http://incredibots.com/if/game.php) or [Phun (now Algodoo)](http://www.algodoo.com/).
 
-See [this blog post](https://hyperparticle.com/2d-physics-shapes) to play it in your browser and to read about how it works in greater detail.
+- [Play it in your browser](https://simmer.io/@hyperparticle/draw-2d-physics-shapes)
+- [Unity Asset Store Bundle](http://u3d.as/YUt)
+
+See [this blog post](https://hyperparticle.com/2d-physics-shapes) to read about how it works in greater detail.
 
 ![Draw Shapes Preview](docs/draw-shapes-unity-preview-short.gif)
 
