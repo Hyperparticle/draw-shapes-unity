@@ -7,7 +7,7 @@ This tutorial project provides an example of how to draw shapes with the cursor 
 
 See [this blog post](https://hyperparticle.com/2d-physics-shapes) to read about how it works in greater detail.
 
-![Draw Shapes Preview](docs/draw-shapes-unity-preview-short.gif)
+[![Draw Shapes Preview](docs/draw-shapes-unity-preview-short.gif "Blog Post")](https://hyperparticle.com/2d-physics-shapes)
 
 ## Project Overview
 
