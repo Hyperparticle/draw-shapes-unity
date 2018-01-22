@@ -8,7 +8,7 @@ The core logic of this project uses vertices specified from the cursor's coordin
 - [Play it in your browser](https://simmer.io/@hyperparticle/draw-2d-physics-shapes)
 - [Unity Asset Store Bundle](https://www.assetstore.unity3d.com/#!/content/105996)
 
-[![Draw Shapes Preview](docs/draw-shapes-unity-preview-short.gif "Blog Post")](https://hyperparticle.com/2d-physics-shapes)
+[![Draw Shapes Preview](shapes-small.png "Blog Post")](https://hyperparticle.com/2d-physics-shapes)
 
 ## Project Overview
 
