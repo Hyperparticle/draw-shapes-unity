@@ -92,7 +92,7 @@ public class DrawCircle : DrawShape
         // The number of segments can be increased based on the radius so that large circles also appear curved.
         // We use an offset and multiplier to create a tunable linear function.
         const float segmentOffset = 40f;
-        const float segmentMultiplier = 5f;
+        const float segmentMultiplier = 2 * Mathf.PI;
         var numSegments = (int) (radius * segmentMultiplier + segmentOffset);
 
         // Create an array of points arround a cricle
